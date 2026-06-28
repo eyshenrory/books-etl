@@ -54,14 +54,14 @@
 
 ## 🚀 Как запустить проект
 
-### 1. Запуск базы данных
-
-```bash
-docker-compose up -d
+### 
+```
+1. Запуск базы данных
+$ docker-compose up -d
 2. Инициализация данных 
-python -m src.main
+$ python -m src.main
 3. Запуск аналитики
-python -m analytics._
+$ python -m analytics."имя_файла"
 ```
 📊 Примеры аналитики
 
@@ -70,8 +70,10 @@ python -m analytics._
 - самые дорогие книги
 - распределение количества книг по рейтингу
 - распределение средней цены книг по рейтингу
-🧠 Примеры SQL-запросов
-Топ-10 самых дорогих книг
+
+🖥️ Примеры SQL-запросов
+```
+-- Топ-10 самых дорогих книг
 WITH rtable AS (
   SELECT
     b.title,
@@ -83,14 +85,15 @@ WITH rtable AS (
     book_prices p ON b.id = p.book_id
 )
 
-SELECT 
+SELECT
   title, 
   round(price, 1) AS price
 FROM 
   rtable 
 WHERE 
   rn <= 10;
-Распределение количества книг по рейтингу
+
+-- Распределение количества книг по рейтингу
 SELECT 
   rating,
   COUNT(*) AS books_count
@@ -100,14 +103,19 @@ GROUP BY
   rating 
 ORDER BY   
   rating DESC;
+```
+
 📈 Пример визуализации
-распределение рейтингов
+
+Распределение рейтингов
+
+<img width="795" height="502" alt="{45EA1B26-3A9D-479F-BDF2-10A7C9810D5E}" src="https://github.com/user-attachments/assets/484d491a-d375-496c-b150-8c8b08315745" />
 
 (строится через matplotlib + pandas)
 
 🔥 Особенности проекта
-реализован полноценный ETL-пайплайн
-используется PostgreSQL как хранилище данных
-реализована история цен (time-series данные)
-SQL используется для аналитики
-Python используется для визуализации
+- реализован полноценный ETL-пайплайн
+- используется PostgreSQL как хранилище данных
+- реализована история цен (time-series данные)
+- SQL используется для аналитики
+- Python используется для визуализации
